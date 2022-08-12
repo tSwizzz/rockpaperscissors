@@ -31,13 +31,10 @@ function playRound(playerSelection, computerSelection) { // again, probably a fa
 function game() {
     for (let k = 1; k <= 5; k++) 
     {
-        if (k <= 5)
-        {
-            let playerSelection = prompt("type rock, paper, or scissors");
-            let computerSelection = getComputerChoice();
-            console.log("Round " + k + "!");
-            playRound(playerSelection, computerSelection);
-        }
+        let playerSelection = prompt("type rock, paper, or scissors");
+        let computerSelection = getComputerChoice();
+        console.log("Round " + k + "!");
+        playRound(playerSelection, computerSelection);
     }
 }
 
