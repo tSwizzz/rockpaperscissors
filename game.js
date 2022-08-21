@@ -1,52 +1,73 @@
 let playerScore = 0;
 let computerScore = 0;
-console.log(game());
+let computerSelection;
+
+const rock = document.querySelector("#rock");
+    rock.addEventListener('click', alertRock);
+const paper = document.querySelector("#paper");
+    paper.addEventListener('click', alertPaper);
+const scissors = document.querySelector("#scissors");
+    scissors.addEventListener('click', alertScissors);
+
+const playerContainer = document.querySelector("#playerContainer");
+    const player = document.createElement("div");
+    const computer = document.createElement("div");
+    const gameFinished = document.createElement("div");
+    player.classList.add("player");
+    computer.classList.add("computer");
+    gameFinished.classList.add("gameFinished");
+    player.textContent = "Player Score: " + playerScore;
+    computer.textContent = "Computer Score: " + computerScore;
+    gameFinished.textContent = "Waiting for winner...";
+    playerContainer.appendChild(player);
+    playerContainer.appendChild(computer);
+    playerContainer.appendChild(gameFinished);
 
 function getComputerChoice() { // theres probably an easier way to check the computer's choice than my method but OHHHHH WELLLLL
-   let computerSelection = Math.floor(Math.random() * 3); 
+   computerSelection = Math.floor(Math.random() * 3); 
 
    if (computerSelection == 0) 
     computerSelection = "rock";
    else if (computerSelection == 1) 
     computerSelection = "paper";
-   else 
+   else
     computerSelection = "scissors";
    return computerSelection;
 }
 
 function playRound(playerSelection, computerSelection) { // again, probably a faster method that idk about :(... or maybe not :o
-    if ((playerSelection == "rock" && computerSelection == "paper") || (playerSelection == "paper" && computerSelection == "scissors") || (playerSelection == "scissors" && computerSelection == "rock")) {
-        console.log("Computer wins!");
+    if ((playerSelection === "rock" && computerSelection === "paper") || (playerSelection === "paper" && computerSelection === "scissors") || (playerSelection === "scissors" && computerSelection === "rock")) {
+        alert("Computer wins this round!");
         computerScore = computerScore + 1; 
+        computer.textContent = "Computer Score: " + computerScore;
+        if(computerScore == 5) 
+            gameFinished.textContent = "COMPUTER WINS, YOU SUCK!!!!";
     }
-    else if ((playerSelection == "rock" && computerSelection == "scissors") || (playerSelection == "paper" && computerSelection == "rock") || (playerSelection == "scissors" && computerSelection == "paper")) {
-        console.log("You win!");
+    else if ((playerSelection === "rock" && computerSelection === "scissors") || (playerSelection === "paper" && computerSelection === "rock") || (playerSelection === "scissors" && computerSelection === "paper")) {
+        alert("You won this round!");
         playerScore = playerScore + 1; 
+        player.textContent = "Player Score: " + playerScore;
+        if(playerScore == 5) 
+            gameFinished.textContent = "YOU WON MY GUY LESSS GOOOOOOO!!!";
     }
-    else if ((playerSelection == "rock" && computerSelection == "rock") || (playerSelection == "paper" && computerSelection == "paper") || (playerSelection == 'scissors' && computerSelection == "scissors")) {
-        console.log("TIE!");
-    }
+    else
+        alert("TIE! Go again!");
 }
 
-function game() {
-    for (let k = 1; k <= 5; k++) 
-    {
-        let playerSelection = prompt("type rock, paper, or scissors");
-        let computerSelection = getComputerChoice();
-        console.log("Round " + k + "!");
-        playRound(playerSelection, computerSelection);
-    }
+function alertRock() {
+    computerSelection = getComputerChoice();
+    let playerSelection = "rock";
+    playRound(playerSelection, computerSelection);
 }
 
-console.log("Computer's score = " + computerScore);
-console.log("Your score = " + playerScore);
+function alertPaper() {
+    computerSelection = getComputerChoice();
+    let playerSelection = "paper";
+    playRound(playerSelection, computerSelection);
+}
 
-if (playerScore > computerScore) 
-    console.log("You fucking champ, you won!");
-else if (playerScore < computerScore)
-    console.log("lol u lost to a computer u suck");
-else
-    console.log("IT'S A MUDDAFUGGIN TIE LOLOLOLOLOLOL");
-
-
-
+function alertScissors() {
+    computerSelection = getComputerChoice();
+    let playerSelection = "scissors";
+    playRound(playerSelection, computerSelection);
+}
